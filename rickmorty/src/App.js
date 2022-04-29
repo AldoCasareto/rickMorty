@@ -3,6 +3,7 @@ import axios from 'axios';
 import CharacterCard from './components/Card/CharacterCard';
 import Search from './components/Search/Search';
 import Pagination from './components/Pagination/Pagination';
+import FilterOthers from './components/Filters/FilterOthers';
 
 function App() {
   const [fetchedData, setFetchedData] = useState([]);
@@ -15,15 +16,13 @@ function App() {
 
   console.log('current page', currentPage);
 
-  const url = [
+  const urlCharacters = [
     `https://rickandmortyapi.com/api/character/?name=${search}&page=${currentPage}`,
   ];
 
-  console.log(url);
-
-  const fetchData = async () => {
+  const fetchDataCharacters = async () => {
     try {
-      const { data } = await axios.get(url);
+      const { data } = await axios.get(urlCharacters);
       setFetchedData(data);
     } catch (error) {
       console.error('Error', error);
@@ -33,12 +32,13 @@ function App() {
   console.log(info);
 
   useEffect(() => {
-    fetchData();
+    fetchDataCharacters();
   }, [search, currentPage]);
 
   return (
     <>
       <Search setSearch={setSearch} />
+      <FilterOthers results={results} />
       <Pagination
         setCurrentPage={setCurrentPage}
         info={info}
