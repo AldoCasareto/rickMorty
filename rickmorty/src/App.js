@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
 import CharacterCard from './components/Card/CharacterCard';
 import Search from './components/Search/Search';
@@ -13,12 +13,29 @@ function App() {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [filters, setFilters] = useState('');
 
   console.log('current page', currentPage);
 
   const urlCharacters = [
-    `https://rickandmortyapi.com/api/character/?name=${search}&page=${currentPage}`,
+    `https://rickandmortyapi.com/api/character/?name=${search}&page=${currentPage}&gender=${filters}`,
   ];
+
+  const urlAll = 'https://rickandmortyapi.com/api/character';
+
+  const fetchAllData = async (urlAll) => {
+    try {
+      const { data } = await axios.get(urlAll);
+      setCharacters((_characters) => {
+        return [..._characters, ...data.results];
+      });
+      if (data.info && data.info.next) {
+        await fetchAllData(data.info.next);
+      }
+    } catch (err) {
+      setError(err);
+    }
+  };
 
   const fetchDataCharacters = async () => {
     try {
@@ -29,27 +46,33 @@ function App() {
     }
   };
 
-  console.log(info);
+  useEffect(() => {
+    fetchAllData(urlAll);
+  }, []);
+
+  console.log(`characters = `, characters);
 
   useEffect(() => {
     fetchDataCharacters();
-  }, [search, currentPage]);
+  }, [search, currentPage, filters]);
 
   return (
     <>
-      <Search setSearch={setSearch} />
-      <FilterOthers results={results} />
-      <Pagination
-        setCurrentPage={setCurrentPage}
-        info={info}
-        currentPage={currentPage}
-      />
-      <CharacterCard results={results} />
-      <Pagination
-        setCurrentPage={setCurrentPage}
-        info={info}
-        currentPage={currentPage}
-      />
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <Search setSearch={setSearch} />
+        <FilterOthers characters={characters} setFilters={setFilters} />
+        <Pagination
+          setCurrentPage={setCurrentPage}
+          info={info}
+          currentPage={currentPage}
+        />
+        <CharacterCard results={results} />
+        <Pagination
+          setCurrentPage={setCurrentPage}
+          info={info}
+          currentPage={currentPage}
+        />
+      </Suspense>
     </>
   );
 }

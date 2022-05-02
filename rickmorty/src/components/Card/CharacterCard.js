@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 
 const CharacterCard = ({ results }) => {
-  console.log(results);
+  console.log('results', results);
   return (
     <div className='container'>
       {results?.map(({ gender, image, origin, species, status, id, name }) => (
