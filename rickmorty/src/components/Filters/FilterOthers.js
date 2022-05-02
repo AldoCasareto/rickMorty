@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
+// import FilterButton from '../Buttons/FilterButton'
 
-const FilterOthers = ({ characters, setFilters }) => {
-  const [selected, setSelected] = useState([]);
+const FilterOthers = ({
+  characters,
+  genderHandler,
+  statusHandler,
+  speciesHandler,
+  typeHandler,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   console.log(`characters = `, characters);
   // console.log(`characters[0].gender = `, characters?[0].id);
 
@@ -14,46 +22,55 @@ const FilterOthers = ({ characters, setFilters }) => {
   const speciesFilter = [...new Set(characters?.map(({ species }) => species))];
   const typeFilter = [...new Set(characters?.map(({ type }) => type))];
 
-  console.log(`genderFilter = `, genderFilter);
-  console.log(`statusFilter = `, statusFilter);
-  console.log(`speciesFilter = `, speciesFilter);
-  console.log(`typeFilter = `, typeFilter);
-
-  const handleSelection = (value) => {
-    console.log(`value = `, value);
-    setFilters(value);
-  };
-
-  //   const handleSelection = (id) => {
-  //     const selectedItem = [...selected];
-  //     const index = selectedItem.indexOf(id);
-  //     if (index === -1) {
-  //       selectedItem.push(id);
-  //     } else {
-  //       selectedItem.splice(index, 1);
-  //     }
-  //     console.log(`SelectedItem = `, selectedItem);
-  //     setSelected(selectedItem);
-  //   };
-
   return (
     <div>
-      <p>Status</p>
-      <ul>
-        {statusFilter.map((status, index) => (
-          <li key={index}>
-            <button onClick={() => handleSelection(status)}>{status}</button>
-          </li>
-        ))}
-      </ul>
-      <p>Gender</p>
-      <ul>
-        {genderFilter.map((gender, index) => (
-          <li key={index}>
-            <button onClick={() => handleSelection(gender)}>{gender}</button>
-          </li>
-        ))}
-      </ul>
+      {
+        <button onClick={() => setIsOpen(!isOpen)}>
+          {!isOpen ? 'Show' : 'Hide'} Filters
+        </button>
+      }
+
+      {isOpen && (
+        <>
+          <p>Status</p>
+          <ul>
+            {statusFilter.map((status, index) => (
+              <li key={index}>
+                <button onClick={() => statusHandler(status)}>{status}</button>
+              </li>
+            ))}
+          </ul>
+          <p>Gender</p>
+          <ul>
+            {genderFilter.map((gender, index) => (
+              <li key={index}>
+                <button onClick={() => genderHandler(gender)}>{gender}</button>
+              </li>
+            ))}
+          </ul>
+          <p>Types</p>
+          <select onChange={typeHandler}>
+            <option value=''>All types</option>
+            {typeFilter
+              .filter((empty) => empty)
+              .map((type, index) => (
+                <option value={type.value} key={index}>
+                  {type}
+                </option>
+              ))}
+          </select>
+          <p>Species</p>
+          <ul>
+            {speciesFilter.map((species, index) => (
+              <li key={index}>
+                <button onClick={() => speciesHandler(species)}>
+                  {species}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 };

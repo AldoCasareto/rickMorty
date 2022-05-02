@@ -13,12 +13,13 @@ function App() {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [filters, setFilters] = useState('');
-
-  console.log('current page', currentPage);
+  const [genderFilter, setGenderFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
+  const [speciesFilter, setSpeciesFilter] = useState('');
+  const [typeFilter, setTypeFilter] = useState('');
 
   const urlCharacters = [
-    `https://rickandmortyapi.com/api/character/?name=${search}&page=${currentPage}&gender=${filters}`,
+    `https://rickandmortyapi.com/api/character/?name=${search}&page=${currentPage}&gender=${genderFilter}&status=${statusFilter}&type=${typeFilter}&species=${speciesFilter}`,
   ];
 
   const urlAll = 'https://rickandmortyapi.com/api/character';
@@ -50,17 +51,45 @@ function App() {
     fetchAllData(urlAll);
   }, []);
 
-  console.log(`characters = `, characters);
-
   useEffect(() => {
     fetchDataCharacters();
-  }, [search, currentPage, filters]);
+  }, [
+    search,
+    currentPage,
+    genderFilter,
+    statusFilter,
+    typeFilter,
+    speciesFilter,
+  ]);
+
+  const statusHandler = (status) => {
+    setStatusFilter(status);
+  };
+
+  const genderHandler = (gender) => {
+    setGenderFilter(gender);
+  };
+
+  const typeHandler = (e) => {
+    setTypeFilter(e.target.value);
+    console.log(`e***** = `, e.target.value);
+  };
+
+  const speciesHandler = (species) => {
+    setSpeciesFilter(species);
+  };
 
   return (
     <>
       <Suspense fallback={<h1>Loading...</h1>}>
         <Search setSearch={setSearch} />
-        <FilterOthers characters={characters} setFilters={setFilters} />
+        <FilterOthers
+          characters={characters}
+          genderHandler={genderHandler}
+          statusHandler={statusHandler}
+          speciesHandler={speciesHandler}
+          typeHandler={typeHandler}
+        />
         <Pagination
           setCurrentPage={setCurrentPage}
           info={info}
