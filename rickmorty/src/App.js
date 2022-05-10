@@ -72,7 +72,6 @@ function App() {
 
   const typeHandler = (e) => {
     setTypeFilter(e.target.value);
-    console.log(`e***** = `, e.target.value);
   };
 
   const speciesHandler = (species) => {

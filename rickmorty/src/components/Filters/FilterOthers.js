@@ -17,10 +17,25 @@ const FilterOthers = ({
   //   const gender = characters?.map(({ gender }) => gender);
   //   const species = characters?.map(({ species }) => species);
   //   const type = characters?.map(({ type }) => type);
+
+  //   const filter = ({ filtered }) => {
+  //     return [...new Set(characters.map(({ filtered }) => filtered))];
+  //   };
+
   const genderFilter = [...new Set(characters.map(({ gender }) => gender))];
   const statusFilter = [...new Set(characters.map(({ status }) => status))];
-  const speciesFilter = [...new Set(characters?.map(({ species }) => species))];
-  const typeFilter = [...new Set(characters?.map(({ type }) => type))];
+  const speciesFilter = [...new Set(characters.map(({ species }) => species))];
+  const typeFilter = [...new Set(characters.map(({ type }) => type))];
+
+  const genderFilter2 = [
+    ...new Set(
+      characters.map(({ gender, status, species, type }) => {
+        return { gender, status, species, type };
+      })
+    ),
+  ];
+
+  console.log(`genderFilter2 = `, genderFilter2);
 
   return (
     <div>
