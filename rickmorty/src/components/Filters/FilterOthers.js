@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import FilterList from './FilterList';
+import FilterOption from './FilterOption';
 // import FilterButton from '../Buttons/FilterButton'
 
 const FilterOthers = ({
@@ -18,14 +20,22 @@ const FilterOthers = ({
   //   const species = characters?.map(({ species }) => species);
   //   const type = characters?.map(({ type }) => type);
 
-  //   const filter = ({ filtered }) => {
-  //     return [...new Set(characters.map(({ filtered }) => filtered))];
-  //   };
+  const ShowFilter = (filtered) => {
+    console.log('filtered', filtered);
+    const gender = [...new Set(characters.map(({ filtered }) => filtered))];
+    console.log(`gender = `, gender);
+    return gender;
+  };
+
+  const gender = 'gender';
 
   const genderFilter = [...new Set(characters.map(({ gender }) => gender))];
   const statusFilter = [...new Set(characters.map(({ status }) => status))];
   const speciesFilter = [...new Set(characters.map(({ species }) => species))];
   const typeFilter = [...new Set(characters.map(({ type }) => type))];
+
+  const genderFilter3 = ShowFilter(gender);
+  console.log(`genderFilter3 = `, genderFilter3);
 
   const genderFilter2 = [
     ...new Set(
@@ -37,6 +47,8 @@ const FilterOthers = ({
 
   console.log(`genderFilter2 = `, genderFilter2);
 
+  console.log(`genderFilter = `, genderFilter);
+
   return (
     <div>
       {
@@ -44,46 +56,24 @@ const FilterOthers = ({
           {!isOpen ? 'Show' : 'Hide'} Filters
         </button>
       }
-
       {isOpen && (
         <>
-          <p>Status</p>
-          <ul>
-            {statusFilter.map((status, index) => (
-              <li key={index}>
-                <button onClick={() => statusHandler(status)}>{status}</button>
-              </li>
-            ))}
-          </ul>
-          <p>Gender</p>
-          <ul>
-            {genderFilter.map((gender, index) => (
-              <li key={index}>
-                <button onClick={() => genderHandler(gender)}>{gender}</button>
-              </li>
-            ))}
-          </ul>
-          <p>Types</p>
-          <select onChange={typeHandler}>
-            <option value=''>All types</option>
-            {typeFilter
-              .filter((empty) => empty)
-              .map((type, index) => (
-                <option value={type.value} key={index}>
-                  {type}
-                </option>
-              ))}
-          </select>
-          <p>Species</p>
-          <ul>
-            {speciesFilter.map((species, index) => (
-              <li key={index}>
-                <button onClick={() => speciesHandler(species)}>
-                  {species}
-                </button>
-              </li>
-            ))}
-          </ul>
+          <FilterList
+            title='Status'
+            list={statusFilter}
+            handler={statusHandler}
+          />
+          <FilterList
+            title='Gender'
+            list={genderFilter}
+            handler={genderHandler}
+          />
+          <FilterList
+            title='Species'
+            list={speciesFilter}
+            handler={speciesHandler}
+          />
+          <FilterOption handler={typeHandler} list={typeFilter} title='Types' />
         </>
       )}
     </div>
