@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Expand from '../Button/Expand';
 import FilterList from './FilterList';
 import FilterOption from './FilterOption';
 // import FilterButton from '../Buttons/FilterButton'
@@ -37,26 +38,11 @@ const FilterOthers = ({
   const genderFilter3 = ShowFilter(gender);
   console.log(`genderFilter3 = `, genderFilter3);
 
-  const genderFilter2 = [
-    ...new Set(
-      characters.map(({ gender, status, species, type }) => {
-        return { gender, status, species, type };
-      })
-    ),
-  ];
-
-  console.log(`genderFilter2 = `, genderFilter2);
-
   console.log(`genderFilter = `, genderFilter);
 
   return (
-    <div>
-      {
-        <button onClick={() => setIsOpen(!isOpen)}>
-          {!isOpen ? 'Show' : 'Hide'} Filters
-        </button>
-      }
-      {isOpen && (
+    <>
+      <Expand>
         <>
           <FilterList
             title='Status'
@@ -75,8 +61,8 @@ const FilterOthers = ({
           />
           <FilterOption handler={typeHandler} list={typeFilter} title='Types' />
         </>
-      )}
-    </div>
+      </Expand>
+    </>
   );
 };
 
