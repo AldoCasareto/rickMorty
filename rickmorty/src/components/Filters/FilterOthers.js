@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Expand from '../Button/Expand';
 import FilterList from './FilterList';
 import FilterOption from './FilterOption';
-// import FilterButton from '../Buttons/FilterButton'
 
 const FilterOthers = ({
   characters,
@@ -11,16 +10,6 @@ const FilterOthers = ({
   speciesHandler,
   typeHandler,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  console.log(`characters = `, characters);
-  // console.log(`characters[0].gender = `, characters?[0].id);
-
-  //   const status = characters?.map(({ status }) => status);
-  //   const gender = characters?.map(({ gender }) => gender);
-  //   const species = characters?.map(({ species }) => species);
-  //   const type = characters?.map(({ type }) => type);
-
   const ShowFilter = (filtered) => {
     console.log('filtered', filtered);
     const gender = [...new Set(characters.map(({ filtered }) => filtered))];

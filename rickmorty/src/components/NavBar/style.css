@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+}
+
+.left {
+  display: flex;
+}
+
+.margin {
+  margin-left: auto;
+}

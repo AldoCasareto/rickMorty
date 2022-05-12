@@ -4,6 +4,7 @@ import CharacterCard from './components/Card/CharacterCard';
 import Search from './components/Search/Search';
 import Pagination from './components/Pagination/Pagination';
 import FilterOthers from './components/Filters/FilterOthers';
+import Navbar from './components/NavBar/Navbar';
 
 function App() {
   const [fetchedData, setFetchedData] = useState([]);
@@ -80,8 +81,10 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<h1>Loading...</h1>}>
+      <Navbar>
         <Search setSearch={setSearch} />
+      </Navbar>
+      <Suspense fallback={<h1>Loading...</h1>}>
         <FilterOthers
           characters={characters}
           genderHandler={genderHandler}
