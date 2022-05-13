@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 
 const FilterList = ({ list, handler, title }) => {
@@ -8,10 +8,15 @@ const FilterList = ({ list, handler, title }) => {
         <h3>{title}</h3>
       </div>
       <div>
-        <ul>
+        <ul className='filter_buttons'>
           {list.map((filter, index) => (
             <li key={index}>
-              <button onClick={() => handler(filter)}>{filter}</button>
+              <button
+                className='button_filter'
+                onClick={() => handler(filter, index)}
+              >
+                {filter}
+              </button>
             </li>
           ))}
         </ul>

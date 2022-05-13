@@ -1,20 +1,29 @@
 import React from 'react';
-import './style.css';
 
 const CharacterCard = ({ results }) => {
-  console.log('results', results);
+  const statusClassName = (status) => {
+    switch (status) {
+      case 'Alive':
+        return 'alive';
+      case 'Dead':
+        return 'dead';
+      default:
+        return 'unknown';
+    }
+  };
+
   return (
-    <div className='list_container'>
+    <>
       {results?.map(({ gender, image, origin, species, status, id, name }) => (
-        <div key={id}>
+        <div className='character_card' key={id}>
           <img src={image} alt={name} />
-          <p>{name}</p>
-          <p className={`${status === 'Alive' ? 'alive' : 'dead'}`}>{status}</p>
+          <h4>{name}</h4>
+          <p className={`${statusClassName(status)} status`}>{status}</p>
           <p>{species}</p>
           <p>{gender}</p>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

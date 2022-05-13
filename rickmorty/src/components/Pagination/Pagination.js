@@ -1,4 +1,5 @@
 import React from 'react';
+import './style.css';
 
 const Pagination = ({ info, setCurrentPage, currentPage }) => {
   console.log(info);
@@ -13,9 +14,9 @@ const Pagination = ({ info, setCurrentPage, currentPage }) => {
   };
 
   return (
-    <div>
-      {info?.prev !== null && <button onClick={previousPage}>back</button>}
-      {info?.next !== null && <button onClick={nextPage}>next</button>}
+    <div className='next_prev'>
+      {info?.prev !== null && <button onClick={previousPage}>Previous</button>}
+      {info?.next !== null && <button onClick={nextPage}>Next</button>}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import Expand from '../Button/Expand';
+import Expand from '../ExpandButton/Expand';
 import FilterList from './FilterList';
 import FilterOption from './FilterOption';
 

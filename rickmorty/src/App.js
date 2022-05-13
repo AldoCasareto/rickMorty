@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
-import CharacterCard from './components/Card/CharacterCard';
-import Search from './components/NavBar/Search';
+import CharacterList from './components/Card/CharacterList';
 import Pagination from './components/Pagination/Pagination';
 import FilterOthers from './components/Filters/FilterOthers';
 import Navbar from './components/NavBar/Navbar';
@@ -18,13 +17,17 @@ function App() {
   const [statusFilter, setStatusFilter] = useState('');
   const [speciesFilter, setSpeciesFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
+  const [active, setActive] = useState('');
 
+  //query fetch url
   const urlCharacters = [
     `https://rickandmortyapi.com/api/character/?name=${search}&page=${currentPage}&gender=${genderFilter}&status=${statusFilter}&type=${typeFilter}&species=${speciesFilter}`,
   ];
 
+  // url to fetch characters
   const urlAll = 'https://rickandmortyapi.com/api/character';
 
+  // fetch ALL character data
   const fetchAllData = async (urlAll) => {
     try {
       const { data } = await axios.get(urlAll);
@@ -39,6 +42,7 @@ function App() {
     }
   };
 
+  // fetch characters with pagination
   const fetchDataCharacters = async () => {
     try {
       const { data } = await axios.get(urlCharacters);
@@ -63,20 +67,27 @@ function App() {
     speciesFilter,
   ]);
 
-  const statusHandler = (status) => {
+  // handlers
+
+  const statusHandler = (status, index) => {
     setStatusFilter(status);
+    console.log(`index = `, index);
+    setActive(index);
   };
 
-  const genderHandler = (gender) => {
+  const genderHandler = (gender, index) => {
     setGenderFilter(gender);
+    setActive(index);
   };
 
-  const typeHandler = (e) => {
+  const typeHandler = (e, index) => {
     setTypeFilter(e.target.value);
+    setActive(index);
   };
 
-  const speciesHandler = (species) => {
+  const speciesHandler = (species, index) => {
     setSpeciesFilter(species);
+    setActive(index);
   };
 
   return (
@@ -90,12 +101,7 @@ function App() {
           speciesHandler={speciesHandler}
           typeHandler={typeHandler}
         />
-        <Pagination
-          setCurrentPage={setCurrentPage}
-          info={info}
-          currentPage={currentPage}
-        />
-        <CharacterCard results={results} />
+        <CharacterList results={results} />
         <Pagination
           setCurrentPage={setCurrentPage}
           info={info}

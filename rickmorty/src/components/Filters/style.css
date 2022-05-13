@@ -4,6 +4,12 @@
   margin-bottom: 1rem;
 }
 
+.filter_buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
 .title {
   margin-right: 1rem;
   width: 5%;

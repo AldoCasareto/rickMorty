@@ -14,10 +14,14 @@ button {
   border-radius: 0.5rem;
   color: #ffffff;
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: 1rem;
   margin: 0;
   outline: none;
   text-align: center;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
 }
 
 button:hover {
