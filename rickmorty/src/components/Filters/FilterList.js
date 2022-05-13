@@ -1,17 +1,22 @@
 import React from 'react';
+import './style.css';
 
 const FilterList = ({ list, handler, title }) => {
   return (
-    <>
-      <p>{title}</p>
-      <ul>
-        {list.map((filter, index) => (
-          <li key={index}>
-            <button onClick={() => handler(filter)}>{filter}</button>
-          </li>
-        ))}
-      </ul>
-    </>
+    <section className='filter_section'>
+      <div className='title'>
+        <h3>{title}</h3>
+      </div>
+      <div>
+        <ul>
+          {list.map((filter, index) => (
+            <li key={index}>
+              <button onClick={() => handler(filter)}>{filter}</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 };
 

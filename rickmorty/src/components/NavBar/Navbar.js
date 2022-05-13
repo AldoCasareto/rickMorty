@@ -1,18 +1,20 @@
 import React from 'react';
 import { ReactComponent as Logo } from '../../assets/svgexport-1.svg';
-import Search from '../Search/Search';
+import Search from './Search';
 import Header from './Header';
 import './style.css';
 
-const Navbar = () => {
+const Navbar = ({ setSearch }) => {
   return (
-    <div className='container'>
+    <div className='nav_container'>
       <div className='left'>
-        <Logo />
+        <div className='logo'>
+          <Logo />
+        </div>
         <Header />
       </div>
       <div className='right'>
-        <Search />
+        <Search setSearch={setSearch} />
       </div>
     </div>
   );

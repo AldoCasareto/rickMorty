@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
 import CharacterCard from './components/Card/CharacterCard';
-import Search from './components/Search/Search';
+import Search from './components/NavBar/Search';
 import Pagination from './components/Pagination/Pagination';
 import FilterOthers from './components/Filters/FilterOthers';
 import Navbar from './components/NavBar/Navbar';
@@ -81,9 +81,7 @@ function App() {
 
   return (
     <>
-      <Navbar>
-        <Search setSearch={setSearch} />
-      </Navbar>
+      <Navbar setSearch={setSearch}></Navbar>
       <Suspense fallback={<h1>Loading...</h1>}>
         <FilterOthers
           characters={characters}

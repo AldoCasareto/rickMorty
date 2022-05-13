@@ -1,0 +1,25 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+button {
+  background-color: #000000;
+  border: 2px solid #1a1a1a;
+  border-radius: 0.5rem;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.75rem;
+  margin: 0;
+  outline: none;
+  text-align: center;
+}
+
+button:hover {
+  background-color: #6f6a6a;
+}
