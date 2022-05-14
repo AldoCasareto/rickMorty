@@ -90,8 +90,15 @@ function App() {
     setActive(index);
   };
 
+  const resetFilters = () => {
+    setGenderFilter('');
+    setStatusFilter('');
+    setSpeciesFilter('');
+    setTypeFilter('');
+  };
+
   return (
-    <>
+    <div className='container'>
       <Navbar setSearch={setSearch}></Navbar>
       <Suspense fallback={<h1>Loading...</h1>}>
         <FilterOthers
@@ -100,6 +107,7 @@ function App() {
           statusHandler={statusHandler}
           speciesHandler={speciesHandler}
           typeHandler={typeHandler}
+          resetFilters={resetFilters}
         />
         <CharacterList results={results} />
         <Pagination
@@ -108,7 +116,7 @@ function App() {
           currentPage={currentPage}
         />
       </Suspense>
-    </>
+    </div>
   );
 }
 

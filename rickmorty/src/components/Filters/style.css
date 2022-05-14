@@ -1,25 +1,22 @@
 .filter_section {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
 }
 
 .filter_buttons {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 1rem;
+}
+
+.option_filter {
+  margin: 0.5rem;
 }
 
 .title {
-  margin-right: 1rem;
-  width: 5%;
+  width: 2%;
+  font-size: 0.7rem;
 }
 
 ul {
   list-style-type: none;
-  display: flex;
-}
-
-li {
-  margin-right: 10px;
 }

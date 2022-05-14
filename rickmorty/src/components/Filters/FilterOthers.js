@@ -1,7 +1,8 @@
 import React from 'react';
-import Expand from '../ExpandButton/Expand';
+import Expand from '../FilterControl/ExpandAndReset';
 import FilterList from './FilterList';
 import FilterOption from './FilterOption';
+import RadioButtons from './RadioButtons';
 
 const FilterOthers = ({
   characters,
@@ -9,6 +10,7 @@ const FilterOthers = ({
   statusHandler,
   speciesHandler,
   typeHandler,
+  resetFilters,
 }) => {
   const ShowFilter = (filtered) => {
     console.log('filtered', filtered);
@@ -31,7 +33,7 @@ const FilterOthers = ({
 
   return (
     <>
-      <Expand>
+      <Expand resetFilters={resetFilters}>
         <>
           <FilterList
             title='Status'
@@ -49,6 +51,11 @@ const FilterOthers = ({
             handler={speciesHandler}
           />
           <FilterOption handler={typeHandler} list={typeFilter} title='Types' />
+          <RadioButtons
+            title='Species'
+            list={speciesFilter}
+            handler={speciesHandler}
+          />
         </>
       </Expand>
     </>
