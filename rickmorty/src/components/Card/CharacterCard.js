@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const CharacterCard = ({ results, statusHandler }) => {
+  const [filterStatus, setFilterStatus] = useState(false);
+
+  const handleStatusClick = (status) => {
+    setFilterStatus(!filterStatus);
+    if (!filterStatus) {
+      statusHandler(status);
+      setFilterStatus(!filterStatus);
+    } else {
+      statusHandler('');
+    }
+  };
+
   const statusClassName = (status) => {
     switch (status) {
       case 'Alive':
@@ -19,7 +31,7 @@ const CharacterCard = ({ results, statusHandler }) => {
           <img src={image} alt={name} />
           <h4>{name}</h4>
           <p
-            onClick={() => statusHandler(status)}
+            onClick={() => handleStatusClick(status)}
             className={`${statusClassName(status)} status`}
           >
             {status}
