@@ -38,3 +38,16 @@
 .dead {
   background-color: #e90b0b;
 }
+
+.notification {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  width: 20%;
+  border-radius: 0.5rem;
+  padding: 0.4rem;
+  background-color: #e90b0b;
+  color: #ffffff;
+  font-size: 1rem;
+  animation-duration: 0.5s;
+}

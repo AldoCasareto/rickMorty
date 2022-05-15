@@ -17,7 +17,6 @@ function App() {
   const [statusFilter, setStatusFilter] = useState('');
   const [speciesFilter, setSpeciesFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
-  const [active, setActive] = useState('');
 
   //query fetch url
   const urlCharacters = [
@@ -38,7 +37,7 @@ function App() {
         await fetchAllData(data.info.next);
       }
     } catch (err) {
-      setError(err);
+      console.error(error);
     }
   };
 
@@ -48,7 +47,7 @@ function App() {
       const { data } = await axios.get(urlCharacters);
       setFetchedData(data);
     } catch (error) {
-      console.error('Error', error);
+      setError(error.response.data.error);
     }
   };
 
@@ -72,22 +71,18 @@ function App() {
   const statusHandler = (status, index) => {
     setStatusFilter(status);
     console.log(`index = `, index);
-    setActive(index);
   };
 
   const genderHandler = (gender, index) => {
     setGenderFilter(gender);
-    setActive(index);
   };
 
   const typeHandler = (e, index) => {
     setTypeFilter(e.target.value);
-    setActive(index);
   };
 
   const speciesHandler = (species, index) => {
     setSpeciesFilter(species);
-    setActive(index);
   };
 
   const resetFilters = () => {
@@ -99,7 +94,7 @@ function App() {
 
   return (
     <div className='container'>
-      <Navbar setSearch={setSearch}></Navbar>
+      <Navbar setSearch={setSearch} setError={setError}></Navbar>
       <Suspense fallback={<h1>Loading...</h1>}>
         <FilterOthers
           characters={characters}
@@ -109,7 +104,11 @@ function App() {
           typeHandler={typeHandler}
           resetFilters={resetFilters}
         />
-        <CharacterList results={results} />
+        <CharacterList
+          results={results}
+          error={error}
+          statusHandler={statusHandler}
+        />
         <Pagination
           setCurrentPage={setCurrentPage}
           info={info}

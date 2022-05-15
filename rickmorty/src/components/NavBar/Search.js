@@ -1,13 +1,18 @@
 import React from 'react';
 import './style.css';
 
-const Search = ({ setSearch }) => {
+const Search = ({ setSearch, setError }) => {
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+    setError(false);
+  };
+
   return (
     <>
       <input
         type='text'
         autoFocus
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={handleChange}
         placeholder='Search Characters'
       />
     </>

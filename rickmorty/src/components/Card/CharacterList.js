@@ -2,12 +2,18 @@ import React from 'react';
 import CharacterCard from './CharacterCard';
 import './style.css';
 
-const CharacterList = ({ results }) => {
-  console.log('results', results);
+const CharacterList = ({ results, error, statusHandler }) => {
+  console.log(`error = `, error);
   return (
-    <div className='list_container'>
-      <CharacterCard results={results} />
-    </div>
+    <>
+      {error ? (
+        <div className='notification'>{error}</div>
+      ) : (
+        <div className='list_container'>
+          <CharacterCard results={results} statusHandler={statusHandler} />
+        </div>
+      )}
+    </>
   );
 };
 

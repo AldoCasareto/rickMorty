@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CharacterCard = ({ results }) => {
+const CharacterCard = ({ results, statusHandler }) => {
   const statusClassName = (status) => {
     switch (status) {
       case 'Alive':
@@ -18,7 +18,12 @@ const CharacterCard = ({ results }) => {
         <div className='character_card' key={id}>
           <img src={image} alt={name} />
           <h4>{name}</h4>
-          <p className={`${statusClassName(status)} status`}>{status}</p>
+          <p
+            onClick={() => statusHandler(status)}
+            className={`${statusClassName(status)} status`}
+          >
+            {status}
+          </p>
           <p>{species}</p>
           <p>{gender}</p>
         </div>

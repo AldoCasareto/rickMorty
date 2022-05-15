@@ -4,7 +4,7 @@ import Search from './Search';
 import Header from './Header';
 import './style.css';
 
-const Navbar = ({ setSearch }) => {
+const Navbar = ({ setSearch, setError }) => {
   return (
     <div className='nav_container'>
       <div className='left'>
@@ -14,7 +14,7 @@ const Navbar = ({ setSearch }) => {
         <Header />
       </div>
       <div className='right'>
-        <Search setSearch={setSearch} />
+        <Search setSearch={setSearch} setError={setError} />
       </div>
     </div>
   );
