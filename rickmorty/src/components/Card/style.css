@@ -18,10 +18,17 @@
   position: relative;
 }
 
-.status {
+.topIcons {
+  display: flex;
   position: absolute;
   top: 0.1rem;
   right: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.status {
   border-radius: 0.5rem;
   padding: 0.2rem;
   cursor: pointer;

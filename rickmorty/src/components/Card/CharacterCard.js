@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 const CharacterCard = ({ results, statusHandler }) => {
   const [filterStatus, setFilterStatus] = useState(false);
+  const [shortlist, setShortlist] = useState([]);
 
   const handleStatusClick = (status) => {
     setFilterStatus(!filterStatus);
@@ -12,6 +14,19 @@ const CharacterCard = ({ results, statusHandler }) => {
       statusHandler('');
     }
   };
+
+  const handleShortlist = (character) => {
+    console.log(`idheart = `, character);
+    setShortlist([...shortlist, character]);
+  };
+
+  const shortListemItems = shortlist.map((card) => {
+    return (
+      <div className='shortlist_item' key={card}>
+        <p>{card.name}</p>
+      </div>
+    );
+  });
 
   const statusClassName = (status) => {
     switch (status) {
@@ -26,20 +41,27 @@ const CharacterCard = ({ results, statusHandler }) => {
 
   return (
     <>
-      {results?.map(({ gender, image, origin, species, status, id, name }) => (
-        <div className='character_card' key={id}>
-          <img src={image} alt={name} />
-          <h4>{name}</h4>
-          <p
-            onClick={() => handleStatusClick(status)}
-            className={`${statusClassName(status)} status`}
-          >
-            {status}
-          </p>
-          <p>{species}</p>
-          <p>{gender}</p>
-        </div>
-      ))}
+      {results?.map((character) => {
+        const { gender, image, species, status, id, name } = character;
+        return (
+          <div className='character_card' key={id}>
+            <img src={image} alt={name} />
+            <h4>{name}</h4>ß
+            <div className='topIcons'>
+              <FaRegHeart onClick={() => handleShortlist(character)} />
+              <p
+                onClick={() => handleStatusClick(status)}
+                className={`${statusClassName(status)} status`}
+              >
+                {status}
+              </p>
+            </div>
+            <p>{species}</p>
+            <p>{gender}</p>
+          </div>
+        );
+      })}
+      {shortListemItems}
     </>
   );
 };
