@@ -2,8 +2,6 @@ import React from 'react';
 import './style.css';
 
 const Pagination = ({ info, setCurrentPage, currentPage }) => {
-  console.log(info);
-
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
     console.log(currentPage);

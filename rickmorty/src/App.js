@@ -2,7 +2,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
 import CharacterList from './components/Card/CharacterList';
 import Pagination from './components/Pagination/Pagination';
-import FilterOthers from './components/Filters/FilterOthers';
+import FilterMain from './components/Filters/FilterMain';
 import Navbar from './components/NavBar/Navbar';
 
 function App() {
@@ -11,12 +11,12 @@ function App() {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [genderFilter, setGenderFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [speciesFilter, setSpeciesFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
+  const [showShortlist, setShowShortlist] = useState(false);
 
   //query fetch url
   const urlCharacters = [
@@ -85,6 +85,10 @@ function App() {
     setSpeciesFilter(species);
   };
 
+  const handleShortlist = () => {
+    setShowShortlist(!showShortlist);
+  };
+
   const resetFilters = () => {
     setGenderFilter('');
     setStatusFilter('');
@@ -94,9 +98,13 @@ function App() {
 
   return (
     <div className='container'>
-      <Navbar setSearch={setSearch} setError={setError}></Navbar>
+      <Navbar
+        setSearch={setSearch}
+        setError={setError}
+        handleShortlist={handleShortlist}
+      />
       <Suspense fallback={<h1>Loading...</h1>}>
-        <FilterOthers
+        <FilterMain
           characters={characters}
           genderHandler={genderHandler}
           statusHandler={statusHandler}
@@ -105,6 +113,7 @@ function App() {
           resetFilters={resetFilters}
         />
         <CharacterList
+          showShortlist={showShortlist}
           results={results}
           error={error}
           statusHandler={statusHandler}

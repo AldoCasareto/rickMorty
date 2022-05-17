@@ -3,8 +3,9 @@ import { ReactComponent as Logo } from '../../assets/svgexport-1.svg';
 import Search from './Search';
 import Header from './Header';
 import './style.css';
+import ShortList from './ShortList';
 
-const Navbar = ({ setSearch, setError }) => {
+const Navbar = ({ setSearch, setError, handleShortlist }) => {
   return (
     <div className='nav_container'>
       <div className='left'>
@@ -14,6 +15,9 @@ const Navbar = ({ setSearch, setError }) => {
         <Header />
       </div>
       <div className='right'>
+        <div>
+          <ShortList handleShortlist={handleShortlist} />
+        </div>
         <Search setSearch={setSearch} setError={setError} />
       </div>
     </div>

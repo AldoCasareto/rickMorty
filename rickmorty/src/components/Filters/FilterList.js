@@ -18,7 +18,7 @@ const FilterList = ({ list, handler, title }) => {
                 {filter}
               </button>
             </li>
-          ))}{' '}
+          ))}
         </div>
       </ul>
     </section>

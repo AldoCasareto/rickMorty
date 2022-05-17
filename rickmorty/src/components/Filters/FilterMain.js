@@ -4,7 +4,7 @@ import FilterList from './FilterList';
 import FilterOption from './FilterOption';
 import RadioButtons from './RadioButtons';
 
-const FilterOthers = ({
+const FilterMain = ({
   characters,
   genderHandler,
   statusHandler,
@@ -12,24 +12,10 @@ const FilterOthers = ({
   typeHandler,
   resetFilters,
 }) => {
-  const ShowFilter = (filtered) => {
-    console.log('filtered', filtered);
-    const gender = [...new Set(characters.map(({ filtered }) => filtered))];
-    console.log(`gender = `, gender);
-    return gender;
-  };
-
-  const gender = 'gender';
-
   const genderFilter = [...new Set(characters.map(({ gender }) => gender))];
   const statusFilter = [...new Set(characters.map(({ status }) => status))];
   const speciesFilter = [...new Set(characters.map(({ species }) => species))];
   const typeFilter = [...new Set(characters.map(({ type }) => type))];
-
-  const genderFilter3 = ShowFilter(gender);
-  console.log(`genderFilter3 = `, genderFilter3);
-
-  console.log(`genderFilter = `, genderFilter);
 
   return (
     <>
@@ -51,15 +37,15 @@ const FilterOthers = ({
             handler={speciesHandler}
           />
           <FilterOption handler={typeHandler} list={typeFilter} title='Types' />
-          <RadioButtons
+          {/* <RadioButtons
             title='Species'
             list={speciesFilter}
             handler={speciesHandler}
-          />
+          /> */}
         </>
       </Expand>
     </>
   );
 };
 
-export default FilterOthers;
+export default FilterMain;

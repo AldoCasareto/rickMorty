@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import moment from 'moment';
 
-const CharacterCard = ({ results, statusHandler }) => {
+const CharacterCard = ({ results, statusHandler, showShortlist }) => {
   const [filterStatus, setFilterStatus] = useState(false);
   const [shortlist, setShortlist] = useState([]);
 
@@ -11,6 +12,8 @@ const CharacterCard = ({ results, statusHandler }) => {
       setShortlist(localShortlist);
     }
   }, []);
+
+  console.log(`results = `, results);
 
   const checkCharacterOnLocalStorage = (id) => {
     if (!shortlist) return;
@@ -47,14 +50,6 @@ const CharacterCard = ({ results, statusHandler }) => {
     setShortlist(shortlistLocalStorage);
   };
 
-  const shortListemItems = shortlist.map((card) => {
-    return (
-      <div className='shortlist_item' key={card}>
-        <p>{card.name}</p>
-      </div>
-    );
-  });
-
   const statusClassName = (status) => {
     switch (status) {
       case 'Alive':
@@ -68,12 +63,22 @@ const CharacterCard = ({ results, statusHandler }) => {
 
   return (
     <>
-      {results?.map((character) => {
-        const { gender, image, species, status, id, name } = character;
+      {(showShortlist ? shortlist : results)?.map((character) => {
+        const {
+          gender,
+          image,
+          species,
+          status,
+          id,
+          name,
+          created,
+          location,
+          episode,
+        } = character;
         return (
           <div className='character_card' key={id}>
             <img src={image} alt={name} />
-            <h4>{name}</h4>ß
+            <h4>{name}</h4>
             <div className='topIcons'>
               {checkCharacterOnLocalStorage(id) ? (
                 <FaHeart
@@ -93,12 +98,14 @@ const CharacterCard = ({ results, statusHandler }) => {
                 {status}
               </p>
             </div>
-            <p>{species}</p>
-            <p>{gender}</p>
+            <p>Species: {species}</p>
+            <p>Gender: {gender}</p>
+            <p>Location: {location.name}</p>
+            <p>Episodes: {episode.length}</p>{' '}
+            <p>Created: {moment(created).format('DD/MM/YYYY')}</p>
           </div>
         );
       })}
-      {shortListemItems}
     </>
   );
 };
