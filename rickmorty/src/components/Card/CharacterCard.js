@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 const CharacterCard = ({ results, statusHandler }) => {
   const [filterStatus, setFilterStatus] = useState(false);
   const [shortlist, setShortlist] = useState([]);
+
+  useEffect(() => {
+    const localShortlist = JSON.parse(localStorage.getItem('shortlist'));
+    if (localShortlist) {
+      setShortlist(localShortlist);
+    }
+  }, []);
+
+  const checkCharacterOnLocalStorage = (id) => {
+    if (!shortlist) return;
+
+    return shortlist.find((character) => character.id === id);
+  };
 
   const handleStatusClick = (status) => {
     setFilterStatus(!filterStatus);
@@ -15,9 +28,23 @@ const CharacterCard = ({ results, statusHandler }) => {
     }
   };
 
+  const saveToLocalStorage = (character) => {
+    localStorage.setItem('shortlist', JSON.stringify(character));
+    setShortlist(character);
+  };
+
   const handleShortlist = (character) => {
-    console.log(`idheart = `, character);
-    setShortlist([...shortlist, character]);
+    if (!checkCharacterOnLocalStorage(character.id)) {
+      const shortlistLocalStorage = [...shortlist, character];
+      saveToLocalStorage(shortlistLocalStorage);
+      localStorage.setItem('shortlist', JSON.stringify(shortlistLocalStorage));
+      return setShortlist(shortlistLocalStorage);
+    }
+    const shortlistLocalStorage = shortlist.filter(
+      (characterLocal) => characterLocal.id !== character.id
+    );
+    localStorage.setItem('shortlist', JSON.stringify(shortlistLocalStorage));
+    setShortlist(shortlistLocalStorage);
   };
 
   const shortListemItems = shortlist.map((card) => {
@@ -48,7 +75,17 @@ const CharacterCard = ({ results, statusHandler }) => {
             <img src={image} alt={name} />
             <h4>{name}</h4>ß
             <div className='topIcons'>
-              <FaRegHeart onClick={() => handleShortlist(character)} />
+              {checkCharacterOnLocalStorage(id) ? (
+                <FaHeart
+                  className='shortlist_icon'
+                  onClick={() => handleShortlist(character)}
+                />
+              ) : (
+                <FaRegHeart
+                  className='shortlist_icon'
+                  onClick={() => handleShortlist(character)}
+                />
+              )}
               <p
                 onClick={() => handleStatusClick(status)}
                 className={`${statusClassName(status)} status`}
