@@ -77,7 +77,9 @@ const CharacterCard = ({ results, statusHandler, showShortlist }) => {
         } = character;
         return (
           <div className='character_card' key={id}>
-            <img src={image} alt={name} />
+            <div className='character_card_image'>
+              <img src={image} alt={name} />
+            </div>
             <h4>{name}</h4>
             <div className='topIcons'>
               {checkCharacterOnLocalStorage(id) ? (
@@ -98,11 +100,16 @@ const CharacterCard = ({ results, statusHandler, showShortlist }) => {
                 {status}
               </p>
             </div>
-            <p>Species: {species}</p>
-            <p>Gender: {gender}</p>
-            <p>Location: {location.name}</p>
-            <p>Episodes: {episode.length}</p>{' '}
-            <p>Created: {moment(created).format('DD/MM/YYYY')}</p>
+            <div className='card-info'>
+              <div className='split'>
+                <div>Species:</div>
+                <div>{species}</div>
+              </div>
+              <p>Gender: {gender}</p>
+              <p>Location: {location.name}</p>
+              <p>Episodes: {episode.length}</p>{' '}
+              <p>Created: {moment(created).format('DD/MM/YYYY')}</p>
+            </div>
           </div>
         );
       })}

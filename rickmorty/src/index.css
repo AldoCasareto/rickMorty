@@ -11,15 +11,15 @@ body {
 button {
   background-color: #000000;
   border: 2px solid #1a1a1a;
-  border-radius: 0.5rem;
+  border-radius: 0.5em;
   color: #ffffff;
   cursor: pointer;
-  font-size: 0.7rem;
+  font-size: 0.7em;
   outline: none;
   text-align: center;
   text-decoration: none;
-  padding: 0.1rem 0.3rem;
-  margin: 0.1rem;
+  padding: 0.1em 0.3em;
+  margin: 0.1em;
 }
 
 button:hover {
