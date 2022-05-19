@@ -2,8 +2,8 @@
   margin-top: 2rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: space-around;
+  gap: 0.5rem;
+  justify-content: space-evenly;
 }
 
 .card-info {
@@ -28,7 +28,7 @@
 }
 
 img {
-  flex-shrink: 0;
+  display: block;
   min-width: 100%;
   min-height: 100%;
 }

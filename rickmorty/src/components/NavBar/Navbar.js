@@ -7,7 +7,7 @@ import ShortList from './ShortList';
 
 const Navbar = ({ setSearch, setError, handleShortlist }) => {
   return (
-    <div className='nav_container'>
+    <header className='nav_container'>
       <div className='left'>
         <div className='logo'>
           <Logo />
@@ -20,7 +20,7 @@ const Navbar = ({ setSearch, setError, handleShortlist }) => {
         </div>
         <Search setSearch={setSearch} setError={setError} />
       </div>
-    </div>
+    </header>
   );
 };
 

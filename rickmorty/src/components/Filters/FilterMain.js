@@ -36,7 +36,7 @@ const FilterMain = ({
             list={speciesFilter}
             handler={speciesHandler}
           />
-          <FilterOption handler={typeHandler} list={typeFilter} title='Types' />
+          {/* <FilterOption handler={typeHandler} list={typeFilter} title='Types' /> */}
           {/* <RadioButtons
             title='Species'
             list={speciesFilter}
