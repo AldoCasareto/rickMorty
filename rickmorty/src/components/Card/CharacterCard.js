@@ -5,6 +5,20 @@ import moment from 'moment';
 const CharacterCard = ({ results, statusHandler, showShortlist }) => {
   const [filterStatus, setFilterStatus] = useState(false);
   const [shortlist, setShortlist] = useState([]);
+  const [policy, setPolicy] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        'https://mocki.io/v1/db57aad0-ee33-4612-8f2a-27c908b81462'
+      );
+      console.log(`response = `, response);
+      const importedData = await response.json();
+      console.log(`importedData = `, importedData);
+      setPolicy(importedData);
+    };
+    fetchData();
+  });
 
   useEffect(() => {
     const localShortlist = JSON.parse(localStorage.getItem('shortlist'));
@@ -12,8 +26,6 @@ const CharacterCard = ({ results, statusHandler, showShortlist }) => {
       setShortlist(localShortlist);
     }
   }, []);
-
-  console.log(`results = `, results);
 
   const checkCharacterOnLocalStorage = (id) => {
     if (!shortlist) return;
@@ -113,6 +125,12 @@ const CharacterCard = ({ results, statusHandler, showShortlist }) => {
           </div>
         );
       })}
+      <div>
+        <div>
+          name: {policy.name}
+          description: {policy.description}
+        </div>
+      </div>
     </>
   );
 };

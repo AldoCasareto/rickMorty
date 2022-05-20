@@ -5,6 +5,8 @@ import Pagination from './components/Pagination/Pagination';
 import FilterMain from './components/Filters/FilterMain';
 import Navbar from './components/NavBar/Navbar';
 
+//add loading
+
 function App() {
   const [fetchedData, setFetchedData] = useState([]);
   const { info, results } = fetchedData;
@@ -123,6 +125,11 @@ function App() {
           info={info}
           currentPage={currentPage}
         />
+        <div>
+          <label htmlFor='name'>enter a policy id:</label>
+          <input id='name' type='password' />
+          <button>Submit</button>
+        </div>
       </Suspense>
     </div>
   );
